@@ -1,0 +1,36 @@
+.ant-modal-root {
+  .ant-modal-mask {
+    opacity: 0.7;
+  }
+
+  .ant-modal-mask,
+  .ant-modal,
+  .ant-modal-content,
+  .ant-modal-header {
+    background-color: var(--background-color-1);
+    color: var(--text-color);
+  }
+
+  .ant-modal-content {
+    color: var(--text-color);
+    border-radius: var(--border-radius);
+
+    .ant-modal-header {
+      color: var(--text-color);
+
+      .ant-modal-title {
+        color: var(--text-color);
+      }
+    }
+
+    .ant-modal-confirm-body > .anticon {
+      color: var(--warning);
+    }
+
+    .ant-modal-confirm-title,
+    .ant-modal-confirm-content,
+    .ant-modal-close {
+      color: var(--text-color);
+    }
+  }
+}
