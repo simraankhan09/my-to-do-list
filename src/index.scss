@@ -45,4 +45,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--background-color-1);
   color: var(--text-color);
+  width: 100%;
+  height: 100%;
+}
+
+.sub-container{
+  @apply p-5 flex flex-col w-full h-full justify-center
+}
+
+.heading{
+  @apply text-sm mb-4 font-[500]
 }

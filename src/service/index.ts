@@ -1,8 +1,7 @@
 import { localStorageKeys } from "../constants";
-import { ResponseType, User, UserLoginResource } from "../types";
+import { ResponseType, ToDo, User, UserLoginResource } from "../types";
 import {
   comparePassword,
-  deleteItemFromLocalStorage,
   encryptPassword,
   getItemFromLocalStorage,
   setItemInLocalStorage,
@@ -33,14 +32,51 @@ const userLogin = (payload: UserLoginResource): ResponseType<User> => {
   return { responseCode: 200, data: user };
 };
 
-const userLogout = () => {
-  deleteItemFromLocalStorage(localStorageKeys.user);
-};
-
 const getUser = () => {
   const user = getItemFromLocalStorage(localStorageKeys.user);
   if (!user) return undefined;
   return JSON.parse(user) as User;
 };
 
-export { registerUser, userLogin, userLogout };
+const getAllToDos = (): ToDo[] => {
+  const todos = getItemFromLocalStorage(localStorageKeys.todos);
+  if (!todos) return [];
+  return JSON.parse(todos);
+};
+
+const saveTodo = (payload: ToDo): ResponseType<ToDo> => {
+  const todos = getAllToDos();
+  todos.push(payload);
+  setItemInLocalStorage(localStorageKeys.todos, todos);
+  return {
+    responseCode: 201,
+  };
+};
+
+const updateTodo = (payload: ToDo): ResponseType<ToDo> => {
+  const todos = getAllToDos();
+  const index = todos.findIndex((item) => item.id === payload.id);
+  todos[index] = payload;
+  setItemInLocalStorage(localStorageKeys.todos, todos);
+  return {
+    responseCode: 200,
+  };
+};
+
+const deleteTodo = (todoId: string): ResponseType<ToDo> => {
+  const todos = getAllToDos();
+  const newTodos = todos.filter((item) => item.id !== todoId);
+  setItemInLocalStorage(localStorageKeys.todos, newTodos);
+  return {
+    responseCode: 200,
+  };
+};
+
+export {
+  registerUser,
+  userLogin,
+  getAllToDos,
+  saveTodo,
+  updateTodo,
+  deleteTodo,
+};

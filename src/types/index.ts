@@ -14,3 +14,10 @@ export interface ResponseType<T> {
   responseCode: number;
   data?: T;
 }
+
+export interface ToDo {
+  id: string;
+  title: string;
+  description: string;
+  status: "COMPLETED" | "IN_COMPLETED";
+}

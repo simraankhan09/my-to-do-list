@@ -6,16 +6,16 @@ import {
   useState,
 } from "react";
 import { User, UserLoginResource } from "../types";
-import { registerUser, userLogin, userLogout } from "../service";
+import { registerUser, userLogin } from "../service";
 import { getItemFromLocalStorage } from "../utils";
 import { localStorageKeys } from "../constants";
 import { Spin } from "antd";
 
 type AuthenticationContextType = {
   user?: User | null;
-  login?: (payload: UserLoginResource) => number;
-  register?: (payload: User) => number;
-  logout?: (userId: string) => void;
+  login: (payload: UserLoginResource) => number;
+  register: (payload: User) => number;
+  logout: () => void;
 };
 
 export const AuthenticationContext =
@@ -54,11 +54,14 @@ export const AuthenticationProvider = ({ children }: PropsWithChildren) => {
 
   const logout = () => {
     setUser(null);
-    return userLogout();
   };
 
   if (user === undefined) {
-    return <Spin></Spin>;
+    return (
+      <div className="flex items-center justify-center w-screen h-screen">
+        <Spin />
+      </div>
+    );
   }
 
   return (

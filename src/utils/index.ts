@@ -22,10 +22,23 @@ const comparePassword = (rawPassword: string, hashPassword: string) => {
   return bcrypt.compareSync(rawPassword, hashPassword);
 };
 
+const validateEmail = (email: string) => {
+  const regEx =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return regEx.test(email.toLowerCase());
+};
+
+const validatePassword = (password: string) => {
+  const regEx = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+  return regEx.test(password);
+};
+
 export {
   getItemFromLocalStorage,
   setItemInLocalStorage,
   deleteItemFromLocalStorage,
   encryptPassword,
   comparePassword,
+  validateEmail,
+  validatePassword,
 };
